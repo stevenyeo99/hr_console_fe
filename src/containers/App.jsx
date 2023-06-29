@@ -1,23 +1,47 @@
+import { Suspense } from 'react';
+import { connect } from 'react-redux';
+
+// Dispatch Redux Action Mapping
+import { setLoading } from '../store/actions/LoadingReduxAction';
+
+// UI Component Mapping
+import Spinner from '../components/UI/Spinner/SpinnerComponent';
+
+// Application Routing
+import AppRouter from '../routes/AppRouter';
+
 import './App.css';
 
-function App() {
+const mapStateToProps = (state) => {
+  console.log(state);
+  const { authReducer, loadingReducer } = state;
+  const { user, isLogin } = authReducer;
+  const { isLoading } = loadingReducer;
+
+  return {
+    user,
+    isLogin,
+    isLoading
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setLoading: (isLoading) => {
+      dispatch(setLoading(isLoading));
+    }
+  }
+};
+
+function App(props) {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Suspense fallback={<Spinner />}>
+        <AppRouter />
+      </Suspense>
     </div>
   );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

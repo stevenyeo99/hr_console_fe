@@ -8,11 +8,16 @@ const loginUser = (user) => {
 };
 
 const registerUser = (user) => {
-
+    return {
+        type: REGISTER_USER,
+        payload: user,
+    }
 };
 
 const logoutUser = (userId) => {
-
+    return {
+        type: LOGIN_USER
+    }
 }
 
 export {

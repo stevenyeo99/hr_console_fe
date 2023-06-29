@@ -6,19 +6,28 @@ const initialState = {
     isLogin: false
 }
 
-const authReduxReducer = (state = initialState, action = {}) => {
+const authReducer = (state = initialState, action = {}) => {
     const { type, payload } = action;
 
     switch (type) {
         case LOGIN_USER:
-            break;
+            return {
+                user: payload,
+                isLogin: true
+            }
         case REGISTER_USER:
-            break;
+            return {
+                user: payload,
+                isLogin: true
+            }
         case LOGOUT_USER:
-            break;
+            return {
+                user: null,
+                isLogin: false
+            }
         default:
-            break;
+            return state;
     }
 };
 
-export default authReduxReducer;
+export default authReducer;
